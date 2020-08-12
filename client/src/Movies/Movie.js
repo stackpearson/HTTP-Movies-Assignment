@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import MovieCard from "./MovieCard";
+import MovieList from './MovieList';
+// import {setMovieList} from '../App';
 
-function Movie({ addToSavedList }) {
+
+const Movie = (props) => {
+  console.log()
   const [movie, setMovie] = useState(null);
   const params = useParams();
+  const {goBack} = useHistory();
 
   const fetchMovie = (id) => {
     axios
@@ -15,18 +20,30 @@ function Movie({ addToSavedList }) {
   };
 
   const saveMovie = () => {
-    addToSavedList(movie);
+    props.addToSavedList(movie);
   };
 
   useEffect(() => {
     fetchMovie(params.id);
   }, [params.id]);
 
-  // const handleEdit = (e) => {
-  //   e.preventDefault();
-  //   console.log('handleEdit from Movie.js', movie)
-  //   props.history.push(`/update-movie/${movie.id}`)
-  // };
+const handleDelete = (e) => {
+  axios
+    .delete(`http://localhost:5000/api/movies/${movie.id}`)
+    .then((res) => {
+      console.log('delete res from Movie', res)
+      axios
+        .get('http://localhost:5000/api/movies')
+        .then((res) => {
+          console.log('get request within delete function', res)
+          props.setMovieList(res.data)
+        })
+      goBack('/')
+    })
+    .catch((err) => {
+      console.error('failed delete from Movie', err.message)
+    })
+}
 
   if (!movie) {
     return <div>Loading movie information...</div>;
@@ -42,6 +59,9 @@ function Movie({ addToSavedList }) {
       <Link className='edit-button' to={`/update-movie/${movie.id}`}>
         Edit
       </Link>
+      <div onClick={handleDelete} className="delete-button" >
+        Delete
+      </div>
     </div>
   );
 }

@@ -71,8 +71,30 @@ body {
   text-decoration: none;
   color: black;
 }
-.save-button:hover, .edit-button:hover {
+
+.delete-button {
+  position: absolute;
+  top: 95px;
+  right: 25px;
+  border: 1px solid grey;
+  padding: 5px 5px;
+  background-color: lightseagreen;
+  text-decoration: none;
+  color: black;
+}
+
+.save-button:hover {
   background-color: green;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: orange;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: red;
   color: white;
 }
 
@@ -92,3 +114,4 @@ body {
   justify-content: center;
   flex-direction: column;
 }
+
