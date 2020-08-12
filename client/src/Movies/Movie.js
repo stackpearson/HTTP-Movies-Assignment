@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import MovieCard from "./MovieCard";
 
 function Movie({ addToSavedList }) {
@@ -22,6 +22,12 @@ function Movie({ addToSavedList }) {
     fetchMovie(params.id);
   }, [params.id]);
 
+  // const handleEdit = (e) => {
+  //   e.preventDefault();
+  //   console.log('handleEdit from Movie.js', movie)
+  //   props.history.push(`/update-movie/${movie.id}`)
+  // };
+
   if (!movie) {
     return <div>Loading movie information...</div>;
   }
@@ -32,6 +38,9 @@ function Movie({ addToSavedList }) {
 
       <div className="save-button" onClick={saveMovie}>
         Save
+      </div>
+      <div  className='edit-button'> 
+        <Link to={`/update-movie/${movie.id}`}>Edit</Link>
       </div>
     </div>
   );
