@@ -68,6 +68,8 @@ body {
   border: 1px solid grey;
   padding: 5px 14.5px;
   background-color: lightseagreen;
+  text-decoration: none;
+  color: black;
 }
 .save-button:hover, .edit-button:hover {
   background-color: green;
@@ -82,4 +84,11 @@ body {
 .movie-warning {
   color: red;
   text-align: center;
+}
+
+.update-container {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
